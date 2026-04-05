@@ -17,12 +17,13 @@ COPY --from=deps /app ./
 RUN pnpm build 2>/dev/null || echo "No build step, skipping"
 
 # ========== Production ==========
-FROM base
+FROM node:24
+RUN corepack enable && corepack prepare pnpm@9 --activate
 WORKDIR /app
 COPY --from=build /app ./
 
-# We only need the runtime, not dev deps
-RUN pnpm install --prod 2>/dev/null || true
+# preview needs vite, so install all deps (dev included)
+RUN pnpm install --frozen-lockfile 2>/dev/null || pnpm install
 
 ENV NODE_ENV=production
 ENV PORT=3000
