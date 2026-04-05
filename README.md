@@ -18,7 +18,7 @@ services:
     container_name: hermes-ui
     restart: unless-stopped
     ports:
-      - "3002:3002"
+      - "3002:3000"
     environment:
       - HERMES_API_URL=http://hermes:3000
     depends_on:

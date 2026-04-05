@@ -25,9 +25,9 @@ COPY --from=build /app ./
 RUN pnpm install --prod 2>/dev/null || true
 
 ENV NODE_ENV=production
-ENV PORT=3002
+ENV PORT=3000
 ENV HERMES_API_URL=http://hermes:3000
 
-EXPOSE 3002
+EXPOSE 3000
 
 CMD ["pnpm", "preview"]
